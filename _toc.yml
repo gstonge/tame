@@ -1,0 +1,25 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: chapters/index
+parts:
+- caption: Master Equations 101
+  chapters:
+  - file: chapters/me_properties
+    title: Definition and properties
+  - file: chapters/numerical_integration
+    title: Numerical integration
+  - file: chapters/pgf_solution
+    title: Explicit solution
+  - file: chapters/ame_examples
+    title: Approximate master equations
+
+- caption: Applications
+  chapters:
+  - file: chapters/lotka_volterra
+    title: Predator-prey
+  - file: chapters/adaptive_networks
+    title: Adaptive networks
+
+

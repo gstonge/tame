@@ -1,0 +1,45 @@
+# Book settings
+# Learn more at https://jupyterbook.org/customize/config.html
+
+title: TAME
+author: Laurent Hébert-Dufresne, Guillaume St-Onge
+logo: "logo.png"
+
+# Force re-execution of notebooks on each build.
+# See https://jupyterbook.org/content/execute.html
+execute:
+  execute_notebooks: force
+
+# Define the name of the latex output file for PDF builds
+latex:
+  latex_documents:
+    targetname: book.tex
+
+# Add a bibtex file so that we can create citations
+bibtex_bibfiles:
+  - references.bib
+
+# reference style
+sphinx:
+  config:
+    bibtex_reference_style: author_year
+
+# Information about where the book exists on the web --- uncomment the repository and launch for binder
+
+repository:
+  url: https://github.com/gstonge/tame
+  branch: "main"
+
+launch_buttons:
+  binderhub_url: "https://mybinder.org"
+  notebook_interface: "jupyterlab"
+
+# Add GitHub buttons to your book
+# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
+html:
+  use_edit_page_button: false
+  use_issues_button: false
+  use_repository_button: true #turn to true to show github repo
+  home_page_in_navbar: false
+
+

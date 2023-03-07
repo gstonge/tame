@@ -1,0 +1,8 @@
+jupyter-book
+matplotlib
+numpy
+scipy
+jupyterlab
+jupyterlab-myst
+numba
+odeintw
