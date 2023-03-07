@@ -1,0 +1,477 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Master equations &#8212; TAME</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Birth-death process" href="numerical_integration.html" />
+    <link rel="prev" title="Taming complexity with Approximate Master Equations" href="index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">TAME</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Master Equations 101
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Definition and properties
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="numerical_integration.html">
+   Numerical integration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="pgf_solution.html">
+   Explicit solution
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ame_examples.html">
+   Approximate master equations
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Applications
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="lotka_volterra.html">
+   Predator-prey
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="adaptive_networks.html">
+   Adaptive networks
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/gstonge/tame/main?urlpath=lab/tree/chapters/me_properties.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/gstonge/tame"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/chapters/me_properties.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-simple-example-birth-death-process">
+   A simple example: Birth-death process
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Master equations</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-simple-example-birth-death-process">
+   A simple example: Birth-death process
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="master-equations">
+<h1>Master equations<a class="headerlink" href="#master-equations" title="Permalink to this headline">#</a></h1>
+<p>In this tutorial, we hope to track the evolution of the probability of finding a system in any of its available discrete states.
+As complex systems are often composed of ensemble of agents or parts, this tool will prove to be a powerful way of tracking their dynamics.
+It allows you to follow the distribution of possible compositions of the system over time, rather than simply following the average behavior of the system as is common in traditional mean-field approaches.
+<a class="reference external" href="https://en.wikipedia.org/wiki/Lotka%E2%80%93Volterra_equations">Predator-prey dynamics</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Birth%E2%80%93death_process">birth–death processes</a>, and <a class="reference external" href="https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology">disease models</a> on networks are only a few of the many applications unlocked by the tools covered in this tutorial.</p>
+<p>A random discrete variable is completly described by its probability distribution <span class="math notranslate nohighlight">\(\lbrace P_n\rbrace_{n = 0}^\infty\)</span> over its set of possible states <span class="math notranslate nohighlight">\(n\)</span>. If that random discrete variable describes the behavior of a complex systems of interest, any tool that allows us to track its distribution through time <span class="math notranslate nohighlight">\(\lbrace P_n(t)\rbrace_{n = 0}^\infty\)</span> will prove invaluable. This is the objective of <strong>master equations</strong>. These are sets of differential equations describing the flows of probabilities associated with any state transitions of a system. As such, these are dynamical systems that respect basic properties of probabilities distributions</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+&amp; \textrm{normalization:}\quad P_n(t) \in  (0,1) \;\forall \in \mathcal{N} \\
+&amp; \textrm{conservation:}\quad \sum_{n \in \mathcal{N}} P_n(t) = 1 \;\forall t \rightarrow \sum_{n \in \mathcal{N}} \frac{d}{dt}P_n(t) = 0
+\end{align}
+\end{split}\]</div>
+<p>In this system of differential equations, every <span class="math notranslate nohighlight">\(dP_n(t)/dt\)</span> captures all flows of probability density in and out of a given state <span class="math notranslate nohighlight">\(P_n(t)\)</span> in exchange with all other states <span class="math notranslate nohighlight">\(m\neq n\)</span>. To make these flows more explicit, one can think of <span class="math notranslate nohighlight">\(dP_n(t)/dt\)</span> as the sum of <strong>probability currents</strong> <span class="math notranslate nohighlight">\(J_{n,m}\)</span> between pairs of states. These currents can be broken down into their flows in both directions and summed up to create master equations, like so:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\frac{d}{dt}P_n(t) =&amp; \sum _{m\neq n} J_{n\rightarrow m}(t)+J_{m\rightarrow n}(t) \\
+=&amp; \sum _{m\neq n} J_{n,m}(t) = J_n(t)
+\end{align}
+\end{split}\]</div>
+<p>You can visualize the system around a given state a bit like you would a regular compartmental model, but here compartments refer to states of the entire system.</p>
+<p><img alt="me_schematic" src="../_images/schematic.png" /></p>
+<p>The boxes here correspond to the states the system can take, and the probability density <span class="math notranslate nohighlight">\(P_n(t)\)</span> for state <span class="math notranslate nohighlight">\(n\)</span> is called an <strong>occupation number</strong>. It might be useful to imagine that we are modeling an infinite amount of equivalent but independent systems, and asking in what fraction <span class="math notranslate nohighlight">\(P_n(t)\)</span> of this infinite multiverse can I find the system in a given state <span class="math notranslate nohighlight">\(n\)</span> at time <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p>This schematic shares a lot with classic compartmental models, but these approaches differ conceptually in one important way. Compartmental models often separate systems into their different types of parts and put those parts in boxes. Master equations separate a multiverse of systems into their different states and put systems in boxes. While we cannot reconstruct a system exactly from a compartmental models because of correlations between parts, master equations do not have that problem since they track the exact state of a system. To do so, master equations require a lot more equations than most compartmental models.</p>
+<p>To model any system with master equations, we must therefore answer the following questions. What is the set of discrete states available to the system? What are the possible transitions between states? At what rates do these transitions occur?</p>
+<section id="a-simple-example-birth-death-process">
+<h2>A simple example: Birth-death process<a class="headerlink" href="#a-simple-example-birth-death-process" title="Permalink to this headline">#</a></h2>
+<p>Imagine that we care about the exact amount of some particles that are created at a constant rate <span class="math notranslate nohighlight">\(\mu\)</span> out of a reservoir but can disappear at another constant rate <span class="math notranslate nohighlight">\(\nu\)</span>. This process is straightforward to model in terms of the average number of active particles at any given time, but almost useless. What if we care about how often particle go extinct? Or how often they reach some critical number of particles? To answer these questions, we need master equations.</p>
+<p><em>What is the set of discrete states available to the system?</em> The system consists of a discrete number <span class="math notranslate nohighlight">\(n\)</span> of active particles which can take any value from 0 to infinity.</p>
+<p><em>What are the possible transitions between states?</em> The system will go from state <span class="math notranslate nohighlight">\(n\)</span> to state <span class="math notranslate nohighlight">\(n+1\)</span> when a new particle is created, and from state <span class="math notranslate nohighlight">\(n&gt;0\)</span> to state <span class="math notranslate nohighlight">\(n-1\)</span> when a particle disappears.</p>
+<p><em>At what rates do these transitions occur?</em> <span class="math notranslate nohighlight">\(J_{n\rightarrow n+1} = \mu\)</span> and <span class="math notranslate nohighlight">\(J_{n&gt;0\rightarrow n-1} = n\nu\)</span>. All other transitions are impossible (null current equal to zero).</p>
+<p>The master equations are therefore, for any number of particles (i.e., system state) <span class="math notranslate nohighlight">\(n\)</span> <span class="math notranslate nohighlight">\(\in \lbrace 0,1,2,\ldots\rbrace\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\frac{d}{dt}P_n(t) &amp;= -\mu P_n(t) + (n+1)\nu P_{n+1}(t) \quad \textrm{for n=0}\\
+\frac{d}{dt}P_n(t) &amp;= -(\mu + n\nu)P_n(t) + (n+1)\nu P_{n+1}(t) + \mu P_{n-1}(t) \quad \textrm{for n&gt;0}\\
+\end{align}
+\end{split}\]</div>
+<p>There are a few standard ways of solving these equations and we will cover the two main approaches. First, we can computationally integrate the system of differential equations to track the distribution of states over time. This always works and is therefore the most common approach in research. For some systems however, a second approach can be used to get a more explicit solution: we can attempt to solve the system by finding a probability generating function describing the probability distribution <span class="math notranslate nohighlight">\(\lbrace P_n \rbrace\)</span>. We will cover both in what comes next!</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="index.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Taming complexity with Approximate Master Equations</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="numerical_integration.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Birth-death process</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Laurent Hébert-Dufresne, Guillaume St-Onge<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
