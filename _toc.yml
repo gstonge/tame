@@ -10,6 +10,8 @@ parts:
     title: Definition and properties
   - file: chapters/numerical_integration
     title: Numerical integration
+  - file: chapters/moment_method
+    title: Method of Moments
   - file: chapters/pgf_solution
     title: Explicit solution
   - file: chapters/ame_examples
