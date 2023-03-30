@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Probability generating function solution" href="pgf_solution.html" />
+    <link rel="next" title="Method of Moments" href="moment_method.html" />
     <link rel="prev" title="Master equations" href="me_properties.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -121,6 +121,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Numerical integration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="moment_method.html">
+   Method of Moments
   </a>
  </li>
  <li class="toctree-l1">
@@ -330,6 +335,11 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#average-over-time">
+   Average over time
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#time-in-the-inactive-state">
    Time in the inactive state
   </a>
@@ -356,6 +366,11 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#distribution-of-particles-through-time">
    Distribution of particles through time
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#average-over-time">
+   Average over time
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -429,7 +444,7 @@ title="Print to PDF"
     <span class="k">return</span> <span class="n">dx</span>
 
 <span class="c1"># Time of observations</span>
-<span class="n">t_length</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="n">t_length</span> <span class="o">=</span> <span class="mi">35</span>
 <span class="n">t_steps</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">t_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">t_length</span><span class="p">,</span> <span class="n">t_steps</span><span class="p">)</span>
 
@@ -448,7 +463,7 @@ title="Print to PDF"
 
 <span class="c1"># Plot</span>
 <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">t_steps</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">nb_of_states</span><span class="p">),</span><span class="n">x_path</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">fr</span><span class="s2">&quot;$t = </span><span class="si">{</span><span class="n">t_length</span><span class="o">*</span><span class="n">t</span><span class="o">/</span><span class="n">t_steps</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">nb_of_states</span><span class="p">),</span><span class="n">x_path</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">fr</span><span class="s2">&quot;$t = </span><span class="si">{</span><span class="n">t_vec</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Occupation number&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Number of particles&#39;</span><span class="p">)</span>
@@ -472,11 +487,19 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9999999999999994
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9999999999999991
 </pre></div>
 </div>
 </div>
 </div>
+</section>
+<section id="average-over-time">
+<h2>Average over time<a class="headerlink" href="#average-over-time" title="Permalink to this headline">#</a></h2>
+<p>Simple mean-field models could be used to track the average number of particles over time. We can do the same by simply summing over our occupation numbers:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle n(t) \rangle = \sum_n nP_n(t)
+\]</div>
 </section>
 <section id="time-in-the-inactive-state">
 <h2>Time in the inactive state<a class="headerlink" href="#time-in-the-inactive-state" title="Permalink to this headline">#</a></h2>
@@ -533,20 +556,16 @@ title="Print to PDF"
 
 <span class="c1"># Plot</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="n">t_length</span><span class="o">/</span><span class="n">t_steps</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">t_steps</span><span class="p">),</span><span class="n">x_path</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Occupation of inactive state&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">t_length</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">t_length</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
-</pre></div>
-</div>
-<img alt="../_images/numerical_integration_14_1.png" src="../_images/numerical_integration_14_1.png" />
+<img alt="../_images/numerical_integration_17_0.png" src="../_images/numerical_integration_17_0.png" />
 </div>
 </div>
 </section>
@@ -586,10 +605,10 @@ title="Print to PDF"
             <p class="prev-next-title">Master equations</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="pgf_solution.html" title="next page">
+    <a class='right-next' id="next-link" href="moment_method.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Probability generating function solution</p>
+        <p class="prev-next-title">Method of Moments</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
