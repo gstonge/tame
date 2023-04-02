@@ -379,6 +379,15 @@ title="Print to PDF"
 <p><em>What is the set of discrete states available to the system?</em> The system is fully described by a discrete number of preys <span class="math notranslate nohighlight">\(n_1\)</span> and a discrete number of predators <span class="math notranslate nohighlight">\(n_2\)</span>, both of which can take any value from 0 to infinity.</p>
 <p><em>What are the possible transitions between states?</em> The system will go from state <span class="math notranslate nohighlight">\((n_1, n_2)\)</span> to state <span class="math notranslate nohighlight">\((n_1+1, n_2)\)</span> trough prey reproduction, from state <span class="math notranslate nohighlight">\((n_1, n_2)\)</span> to state <span class="math notranslate nohighlight">\((n_1-1, n_2+1)\)</span> through predation, and from state <span class="math notranslate nohighlight">\((n_1, n_2)\)</span> to state <span class="math notranslate nohighlight">\((n_1, n_2-1)\)</span> through predator death.</p>
 <p><em>At what rates do these transitions occur?</em> <span class="math notranslate nohighlight">\(J_{(n_1, n_2)\rightarrow (n_1+1, n_2)} = \alpha n_1(K-n_1)\)</span> and <span class="math notranslate nohighlight">\(J_{(n_1, n_2)\rightarrow (n_1, n_2-1)} = \gamma n_2\)</span> and <span class="math notranslate nohighlight">\(J_{(n_1, n_2)\rightarrow (n_1-1, n_2+1)} = \beta n_1 n_2\)</span>. All other transitions are impossible (null current equal to zero).</p>
+<p>Combining all these terms, we get the following master equation.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+\frac{d}{dt}P_{n_1,n_2}(t) &amp;= -\alpha n_1(K-n_1)P_{n_1,n_2}(t) - \gamma n_2 P_{n_1,n_2}(t) - \beta n_1 n_2 P_{n_1,n_2}(t) \\
+&amp; + \alpha (n_1-1)(K-n_1+1)P_{n_1-1,n_2}(t) + \gamma (n_2+1) P_{n_1,n_2+2}(t) + \beta (n_1+1)(n_2-1) P_{n_1+1,n_2-1}(t)
+\end{align}
+\end{split}\]</div>
+<p>This model (and most of its variants) can be simplified as we’ve seen before using the method of moments. Or we can use a more common approach and numerically integrate the master equation in time.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -454,7 +463,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/lotka_volterra_4_0.png" src="../_images/lotka_volterra_4_0.png" />
+<img alt="../_images/lotka_volterra_6_0.png" src="../_images/lotka_volterra_6_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -470,7 +479,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/lotka_volterra_5_0.png" src="../_images/lotka_volterra_5_0.png" />
+<img alt="../_images/lotka_volterra_7_0.png" src="../_images/lotka_volterra_7_0.png" />
 </div>
 </div>
 <p>The evolution of the state distribution shows feature of the classic Lotka-Volterra cycles. The mode of the distribution of preys initially goes down then back up, and conversely for the number of predators. However, just like the average of an infinite number of simulations would, the master equations converge towards a near steady-state distribution over all states. However, there exist a few absorbing states that preclude a truly fixed distribution of co-existence states for predators and preys…</p>
@@ -488,7 +497,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/lotka_volterra_7_0.png" src="../_images/lotka_volterra_7_0.png" />
+<img alt="../_images/lotka_volterra_9_0.png" src="../_images/lotka_volterra_9_0.png" />
 </div>
 </div>
 <div class="admonition tip">
